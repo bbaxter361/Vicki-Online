@@ -1,0 +1,12 @@
+{
+  "name": "victoria-online",
+  "version": "1.0.0",
+  "description": "Victoria's online dashboard and project hub.",
+  "main": "replaybrick-dashboard-server.cjs",
+  "scripts": {
+    "start": "node replaybrick-dashboard-server.cjs"
+  },
+  "keywords": [],
+  "author": "Brian Baxter",
+  "license": "ISC"
+}
