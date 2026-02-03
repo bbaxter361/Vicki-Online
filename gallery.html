@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOC Gallery | ReplayBricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-accent: #e9ecef;
+            --lego-blue: #0055ad;
+            --lego-yellow: #ffcf00;
+            --lego-red: #d11212;
+            --text-main: #212529;
+            --text-dim: #6c757d;
+            --border: #dee2e6;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-white);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--lego-blue); text-transform: uppercase; }
+        .logo span { color: var(--lego-red); }
+
+        nav.desktop-nav { display: flex; gap: 2rem; }
+        nav.desktop-nav a { text-decoration: none; color: var(--text-dim); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
+        nav.desktop-nav a:hover, nav.desktop-nav a.active { color: var(--lego-blue); }
+
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--lego-yellow);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-header h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover { transform: scale(1.02); }
+
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--bg-white);
+            display: none;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active { color: var(--lego-blue); }
+
+        @media (max-width: 768px) {
+            nav.desktop-nav { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding: 1rem; }
+            body { padding-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">REPLAY<span>BRICKS</span></div>
+        <nav class="desktop-nav">
+            <a href="index.html">News Feed</a>
+            <a href="gallery.html" class="active">MOC Gallery</a>
+            <a href="pulse.html">Investment Pulse</a>
+            <a href="vault.html">The Vault</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h2>MOC Showcases</h2>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1560643194-36dcb79fbc6a?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1472457897821-70d3819a0e24?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1518946222227-364f22132616?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1520627932574-8faad43e2e6b?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1589417853112-707198759567?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&q=80')"></div>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="nav-item">Feed</a>
+        <a href="gallery.html" class="nav-item active">Gallery</a>
+        <a href="pulse.html" class="nav-item">Pulse</a>
+        <a href="vault.html" class="nav-item">Vault</a>
+    </nav>
+
+</body>
+</html>

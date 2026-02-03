@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReplayBricks | The Premium LEGO Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-accent: #e9ecef;
+            --lego-blue: #0055ad;
+            --lego-yellow: #ffcf00;
+            --lego-red: #d11212;
+            --text-main: #212529;
+            --text-dim: #6c757d;
+            --border: #dee2e6;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-white);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--lego-blue);
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--lego-red); }
+
+        nav.desktop-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav.desktop-nav a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        nav.desktop-nav a:hover, nav.desktop-nav a.active {
+            color: var(--lego-blue);
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero {
+            background-color: var(--lego-blue);
+            color: white;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--lego-yellow);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: var(--bg-accent);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content { padding: 1.5rem; }
+        .card-content h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--lego-blue); }
+        .card-content p { color: var(--text-dim); font-size: 0.9rem; margin: 0; }
+
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--bg-white);
+            display: none;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active { color: var(--lego-blue); }
+
+        @media (max-width: 768px) {
+            nav.desktop-nav { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding: 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            body { padding-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">REPLAY<span>BRICKS</span></div>
+        <nav class="desktop-nav">
+            <a href="index.html" class="active">News Feed</a>
+            <a href="gallery.html">MOC Gallery</a>
+            <a href="pulse.html">Investment Pulse</a>
+            <a href="vault.html">The Vault</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>The UCS Venator Retires Early.</h1>
+            <p>Confirmed rumors point to a December exit for the flagship set.</p>
+        </div>
+
+        <div class="section-header">
+            <h2>Breaking News</h2>
+            <a href="#" style="font-size: 0.8rem; color: var(--lego-blue); text-decoration: none; font-weight: bold;">View All</a>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&q=80')"></div>
+                <div class="card-content">
+                    <h3>March 2026 Wave Leaked</h3>
+                    <p>New details on the upcoming Space subtheme have surfaced with 4 new sets...</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1520627932574-8faad43e2e6b?auto=format&fit=crop&w=400&q=80')"></div>
+                <div class="card-content">
+                    <h3>The Modular Strategy</h3>
+                    <p>Why modular buildings remain the most consistent investment for collectors.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="nav-item active">Feed</a>
+        <a href="gallery.html" class="nav-item">Gallery</a>
+        <a href="pulse.html" class="nav-item">Pulse</a>
+        <a href="vault.html" class="nav-item">Vault</a>
+    </nav>
+
+</body>
+</html>

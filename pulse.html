@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Pulse | ReplayBricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-accent: #e9ecef;
+            --lego-blue: #0055ad;
+            --lego-yellow: #ffcf00;
+            --lego-red: #d11212;
+            --text-main: #212529;
+            --text-dim: #6c757d;
+            --border: #dee2e6;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-white);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--lego-blue); text-transform: uppercase; }
+        .logo span { color: var(--lego-red); }
+
+        nav.desktop-nav { display: flex; gap: 2rem; }
+        nav.desktop-nav a { text-decoration: none; color: var(--text-dim); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
+        nav.desktop-nav a:hover, nav.desktop-nav a.active { color: var(--lego-blue); }
+
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--lego-yellow);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-header h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .pulse-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .set-info h2 { margin: 0; color: var(--lego-blue); }
+        .set-info p { color: var(--text-dim); margin: 0.5rem 0 0 0; }
+
+        .replay-score {
+            text-align: center;
+            background: var(--bg-accent);
+            padding: 1rem;
+            border-radius: 12px;
+            min-width: 120px;
+            border: 2px solid var(--lego-yellow);
+        }
+
+        .score-num { font-size: 2.2rem; font-weight: 900; color: var(--lego-blue); line-height: 1; }
+        .score-label { font-size: 0.7rem; text-transform: uppercase; font-weight: bold; color: var(--text-dim); }
+
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--bg-white);
+            display: none;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active { color: var(--lego-blue); }
+
+        @media (max-width: 768px) {
+            nav.desktop-nav { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding: 1rem; }
+            .pulse-card { flex-direction: column; text-align: center; gap: 1.5rem; }
+            body { padding-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">REPLAY<span>BRICKS</span></div>
+        <nav class="desktop-nav">
+            <a href="index.html">News Feed</a>
+            <a href="gallery.html">MOC Gallery</a>
+            <a href="pulse.html" class="active">Investment Pulse</a>
+            <a href="vault.html">The Vault</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h2>Investment Tracker</h2>
+        </div>
+
+        <div class="pulse-card">
+            <div class="set-info">
+                <h2>Rivendell (10316)</h2>
+                <p>Status: <span style="color:var(--lego-red); font-weight: bold;">Retiring Soon</span></p>
+                <p>MSRP: $499.99 | Projecting: <span style="color:var(--lego-blue)">$740.00 (2027)</span></p>
+            </div>
+            <div class="replay-score">
+                <div class="score-num">9.4</div>
+                <div class="score-label">Replay Score</div>
+            </div>
+        </div>
+
+        <div class="pulse-card">
+            <div class="set-info">
+                <h2>UCS Venator (75367)</h2>
+                <p>Status: <span style="color:var(--text-dim);">Active</span></p>
+                <p>MSRP: $649.99 | Projecting: <span style="color:var(--lego-blue)">$810.00 (2027)</span></p>
+            </div>
+            <div class="replay-score">
+                <div class="score-num">8.1</div>
+                <div class="score-label">Replay Score</div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="nav-item">Feed</a>
+        <a href="gallery.html" class="nav-item">Gallery</a>
+        <a href="pulse.html" class="nav-item active">Pulse</a>
+        <a href="vault.html" class="nav-item">Vault</a>
+    </nav>
+
+</body>
+</html>

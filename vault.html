@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vault | ReplayBricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-accent: #e9ecef;
+            --lego-blue: #0055ad;
+            --lego-yellow: #ffcf00;
+            --lego-red: #d11212;
+            --text-main: #212529;
+            --text-dim: #6c757d;
+            --border: #dee2e6;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-white);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--lego-blue); text-transform: uppercase; }
+        .logo span { color: var(--lego-red); }
+
+        nav.desktop-nav { display: flex; gap: 2rem; }
+        nav.desktop-nav a { text-decoration: none; color: var(--text-dim); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
+        nav.desktop-nav a:hover, nav.desktop-nav a.active { color: var(--lego-blue); }
+
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
+
+        .vault-hero {
+            background: var(--bg-white);
+            padding: 4rem 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            max-width: 600px;
+        }
+
+        .vault-hero h1 { font-size: 2.5rem; color: var(--lego-blue); margin: 0; }
+        .vault-hero p { font-size: 1.1rem; color: var(--text-dim); margin: 1.5rem 0; }
+
+        .btn {
+            background: var(--lego-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.9; }
+
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--bg-white);
+            display: none;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active { color: var(--lego-blue); }
+
+        @media (max-width: 768px) {
+            nav.desktop-nav { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding: 1rem; }
+            body { padding-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">REPLAY<span>BRICKS</span></div>
+        <nav class="desktop-nav">
+            <a href="index.html">News Feed</a>
+            <a href="gallery.html">MOC Gallery</a>
+            <a href="pulse.html">Investment Pulse</a>
+            <a href="vault.html" class="active">The Vault</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="vault-hero">
+            <h1>The Vault</h1>
+            <p>Your personal LEGO collection tracker is almost ready. Manage your investments and track your brick value in one place.</p>
+            <a href="#" class="btn">Coming Soon</a>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="nav-item">Feed</a>
+        <a href="gallery.html" class="nav-item">Gallery</a>
+        <a href="pulse.html" class="nav-item">Pulse</a>
+        <a href="vault.html" class="nav-item active">Vault</a>
+    </nav>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReplayBrick | Bricqer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bricqer-blue: #1e293b;
+            --bricqer-accent: #3b82f6;
+            --bricklink-blue: #00457c;
+            --brickowl-green: #4caf50;
+        }
+        body {
+            background-color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar {
+            background-color: var(--bricqer-blue);
+        }
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .status-syncing {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 text-white flex-shrink-0">
+        <div class="p-6 text-2xl font-bold border-b border-slate-700">
+            ReplayBrick
+        </div>
+        <nav class="p-4 space-y-2">
+            <a href="index.html" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-home mr-3"></i> Home</a>
+            <a href="dashboard.html" class="block p-3 rounded bg-blue-600"><i class="fas fa-chart-line mr-3"></i> Dashboard</a>
+            <a href="gallery.html" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-images mr-3"></i> Gallery</a>
+            <a href="pulse.html" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-heartbeat mr-3"></i> Pulse</a>
+            <a href="vault.html" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-vault mr-3"></i> Vault</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-semibold text-slate-800">Store Overview</h1>
+            <div class="flex items-center space-x-4">
+                <span id="last-sync-text" class="text-sm text-slate-500">Last Sync: Just now</span>
+                <button onclick="fetchDashboardData()" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+                    <i class="fas fa-sync-alt mr-2"></i> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Order Summary -->
+            <div class="card p-6 border-l-4 border-blue-600">
+                <div class="text-sm text-slate-500 uppercase font-bold mb-1">Total Orders (Recent)</div>
+                <div class="text-3xl font-bold text-slate-800" id="total-orders">--</div>
+                <div class="flex mt-2 text-xs">
+                    <span class="text-blue-600 mr-2"><i class="fas fa-link mr-1"></i> BrickLink: <span id="bl-orders">--</span></span>
+                    <span class="text-green-600"><i class="fas fa-kiwi-bird mr-1"></i> BrickOwl: <span id="bo-orders">--</span></span>
+                </div>
+            </div>
+
+            <!-- Inventory Parts -->
+            <div class="card p-6 border-l-4 border-emerald-500">
+                <div class="text-sm text-slate-500 uppercase font-bold mb-1">Total Parts</div>
+                <div class="text-3xl font-bold text-slate-800" id="total-parts">--</div>
+                <div class="flex mt-2 text-xs">
+                    <span class="text-blue-600 mr-2"><i class="fas fa-link mr-1"></i> BL: <span id="bl-parts">--</span></span>
+                    <span class="text-green-600"><i class="fas fa-kiwi-bird mr-1"></i> BO: <span id="bo-parts">--</span></span>
+                </div>
+            </div>
+
+            <!-- Inventory Lots -->
+            <div class="card p-6 border-l-4 border-amber-500">
+                <div class="text-sm text-slate-500 uppercase font-bold mb-1">Total Lots</div>
+                <div class="text-3xl font-bold text-slate-800" id="total-lots">--</div>
+                <div class="flex mt-2 text-xs">
+                    <span class="text-blue-600 mr-2"><i class="fas fa-link mr-1"></i> BL: <span id="bl-lots">--</span></span>
+                    <span class="text-green-600 mr-2"><i class="fas fa-kiwi-bird mr-1"></i> BO: <span id="bo-lots">--</span></span>
+                    <span class="text-slate-400" id="avg-parts-lot">-- p/l</span>
+                </div>
+            </div>
+
+            <!-- Sync Status -->
+            <div class="card p-6 border-l-4 border-indigo-500">
+                <div class="text-sm text-slate-500 uppercase font-bold mb-1">Sync Status</div>
+                <div class="flex items-center mt-2">
+                    <div id="status-indicator" class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                    <span id="status-text" class="text-lg font-medium text-slate-800">Healthy</span>
+                </div>
+                <div class="text-xs text-slate-400 mt-2">Real-time monitoring</div>
+            </div>
+        </div>
+
+        <!-- Recent Orders & Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Orders List -->
+            <div class="lg:col-span-2 card overflow-hidden">
+                <div class="p-4 border-b font-bold text-slate-700 bg-slate-50">Recent Orders</div>
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-xs uppercase text-slate-400 border-b bg-slate-50">
+                            <th class="p-4">Order ID</th>
+                            <th class="p-4">Source</th>
+                            <th class="p-4">Items</th>
+                            <th class="p-4">Total</th>
+                            <th class="p-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body" class="text-sm text-slate-600">
+                        <tr class="border-b">
+                            <td colspan="5" class="p-4 text-center">Loading recent orders...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Marketplace Health -->
+            <div class="card">
+                <div class="p-4 border-b font-bold text-slate-700 bg-slate-50">Sync Indicators</div>
+                <div class="p-6 space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center text-white mr-3">
+                                <i class="fas fa-link text-xs"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold">BrickLink API</div>
+                                <div class="text-xs text-slate-400" id="bl-api-status">Connected</div>
+                            </div>
+                        </div>
+                        <span class="text-emerald-500"><i class="fas fa-check-circle"></i></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-green-600 flex items-center justify-center text-white mr-3">
+                                <i class="fas fa-kiwi-bird text-xs"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold">BrickOwl API</div>
+                                <div class="text-xs text-slate-400" id="bo-api-status">Connected</div>
+                            </div>
+                        </div>
+                        <span class="text-emerald-500"><i class="fas fa-check-circle"></i></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center text-white mr-3">
+                                <i class="fas fa-database text-xs"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold">Local Cache</div>
+                                <div class="text-xs text-slate-400" id="cache-status">Active</div>
+                            </div>
+                        </div>
+                        <span class="text-indigo-500 status-syncing"><i class="fas fa-sync-alt"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function getStatusBadge(source, status) {
+            const s = status.toLowerCase();
+            let color = 'bg-slate-100 text-slate-600'; // Default
+            
+            if (s.includes('paid') || s.includes('processed') || s.includes('processing')) {
+                color = 'bg-blue-100 text-blue-600';
+            } else if (s.includes('shipped') || s.includes('completed') || s.includes('received')) {
+                color = 'bg-green-100 text-green-600';
+            } else if (s.includes('pending') || s.includes('updated')) {
+                color = 'bg-amber-100 text-amber-600';
+            } else if (s.includes('cancelled') || s.includes('deleted')) {
+                color = 'bg-red-100 text-red-600';
+            }
+
+            return `<span class="px-2 py-1 rounded-full text-xs font-bold ${color}">${status}</span>`;
+        }
+
+        async function fetchDashboardData() {
+            try {
+                // Fetch Stats
+                const statsResponse = await fetch('/api/dashboard/stats');
+                const data = await statsResponse.json();
+                
+                // Update stats
+                document.getElementById('total-orders').textContent = data.orders.total;
+                document.getElementById('bl-orders').textContent = data.orders.bricklink;
+                document.getElementById('bo-orders').textContent = data.orders.brickowl;
+                
+                document.getElementById('total-parts').textContent = data.inventory.totalParts.toLocaleString();
+                document.getElementById('bl-parts').textContent = data.inventory.bricklink.parts.toLocaleString();
+                document.getElementById('bo-parts').textContent = data.inventory.brickowl.parts.toLocaleString();
+
+                document.getElementById('total-lots').textContent = data.inventory.totalLots.toLocaleString();
+                document.getElementById('bl-lots').textContent = data.inventory.bricklink.lots.toLocaleString();
+                document.getElementById('bo-lots').textContent = data.inventory.brickowl.lots.toLocaleString();
+                
+                const avg = data.inventory.totalLots > 0 ? (data.inventory.totalParts / data.inventory.totalLots).toFixed(1) : 0;
+                document.getElementById('avg-parts-lot').textContent = `${avg} p/l`;
+                
+                document.getElementById('status-text').textContent = data.sync.status.charAt(0).toUpperCase() + data.sync.status.slice(1);
+                
+                const lastSync = new Date(data.sync.lastSync);
+                document.getElementById('last-sync-text').textContent = `Last Sync: ${lastSync.toLocaleTimeString()}`;
+
+                // Fetch Orders
+                const ordersResponse = await fetch('/api/dashboard/orders');
+                const orders = await ordersResponse.json();
+                const tableBody = document.getElementById('orders-table-body');
+                
+                if (orders.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr class="border-b">
+                            <td colspan="5" class="p-4 text-center">No orders found.</td>
+                        </tr>
+                    `;
+                } else {
+                    tableBody.innerHTML = orders.slice(0, 50).map(order => `
+                        <tr class="border-b hover:bg-slate-50 transition">
+                            <td class="p-4 font-medium text-slate-800">#${order.id}</td>
+                            <td class="p-4">
+                                <span class="flex items-center">
+                                    <i class="fas ${order.source === 'BrickLink' ? 'fa-link text-blue-600' : 'fa-kiwi-bird text-green-600'} mr-2"></i>
+                                    ${order.source}
+                                </span>
+                            </td>
+                            <td class="p-4">${order.items}</td>
+                            <td class="p-4 font-mono">${order.total}</td>
+                            <td class="p-4">${getStatusBadge(order.source, order.status)}</td>
+                        </tr>
+                    `).join('');
+                }
+
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+                document.getElementById('orders-table-body').innerHTML = `
+                    <tr class="border-b">
+                        <td colspan="5" class="p-4 text-center text-red-500">Error loading dashboard data.</td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Load data on page load
+        window.onload = fetchDashboardData;
+    </script>
+</body>
+</html>
