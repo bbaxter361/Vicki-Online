@@ -2,11 +2,12 @@ services:
   - type: web
     name: victoria-online
     env: node
+    runtime: node # Explicitly specify Node.js runtime
     repo: https://github.com/bbaxter361/Vicki-Online.git
-    region: oregon # or choose your preferred region
+    region: oregon
     branch: main
-    plan: free # or starter, standard, etc.
-    buildCommand: npm install
-    startCommand: node replaybrick-dashboard-server.cjs # Assuming this is your main server file
+    plan: free
+    buildCommand: npm install # Ensure Node.js build command
+    startCommand: node replaybrick-dashboard-server.cjs
     autoDeploy: true
     healthCheckPath: /
