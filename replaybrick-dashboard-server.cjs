@@ -183,7 +183,7 @@ app.get('/api/dashboard/orders', async (req, res) => {
 });
 
 app.get('/dashboard.html', (req, res) => {
-    const filePath = path.join(__dirname, '..', 'projects', 'replaybrick-proto', 'dashboard.html');
+    const filePath = path.join(__dirname, 'dashboard.html');
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {
@@ -191,10 +191,10 @@ app.get('/dashboard.html', (req, res) => {
     }
 });
 
-app.use(express.static(path.join(__dirname, '..', 'projects', 'replaybrick-proto')));
+app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../projects/replaybrick-proto/index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(port, '0.0.0.0', () => {
